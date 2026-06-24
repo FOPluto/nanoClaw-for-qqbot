@@ -1,0 +1,10 @@
+**.md
+**.db
+store/chroma/**
+knowledge/**
+**.json
+**.log**
+workspace/**
+src/nanoclaw/.env
+.idea/
+src/nanoclaw/__pycache__/**
