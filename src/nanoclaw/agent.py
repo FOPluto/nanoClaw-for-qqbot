@@ -969,15 +969,6 @@ async def _run_agent_inner(prompt: str, bot: Any, chat_id: str, db_path: str) ->
     return result
 
 
-async def run_agent(prompt: str, bot: Any, chat_id: str, db_path: str) -> str:
-    """执行一次正常的 AI Agent 对话。
-
-    调用方：bot.py 的 _handle_message()。
-    加锁防止并发对话。
-    """
-    async with _agent_lock:
-        return await _run_agent_inner(prompt, bot, chat_id, db_path)
-
 
 
 async def run_task_agent(
