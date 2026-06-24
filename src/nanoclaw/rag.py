@@ -30,7 +30,7 @@ _os.environ.setdefault("HF_ENDPOINT", "https://hf-mirror.com")
 
 import logging
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from chromadb.api import Collection
@@ -59,6 +59,9 @@ _SUPPORTED_SUFFIXES = {".txt", ".md"}
 
 # 模块级单例
 _rag_instance: RAG | None = None
+
+# embedding device
+_embedding_device: str = "cuda:0"
 
 
 def get_rag() -> RAG:
@@ -89,7 +92,7 @@ class RAG:
             from sentence_transformers import SentenceTransformer
             model_name = config.rag_embedding_model
             logger.info("Loading embedding model: %s ...", model_name)
-            self._embedding_model = SentenceTransformer(model_name)
+            self._embedding_model = SentenceTransformer(model_name, device=_embedding_device)
             logger.info("Embedding model loaded (dim=%d)", self._embedding_model.get_sentence_embedding_dimension())
         return self._embedding_model
 

@@ -942,6 +942,10 @@ async def _agent_loop(
 
 
 
+async def run_agent(prompt: str, bot: Any, chat_id: str, db_path: str) -> str:
+    async with asyncio.Lock():
+        return await _run_agent_inner(prompt, bot, chat_id, db_path)
+
 
 async def _run_agent_inner(prompt: str, bot: Any, chat_id: str, db_path: str) -> str:
     """Agent 内部实现（调用方已经持锁）。"""
